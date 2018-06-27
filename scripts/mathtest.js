@@ -1,3 +1,5 @@
+/* Copyright 2018 Ronald Jensen */
+
 var MathTest=function()
 {
 	this.result=null;
