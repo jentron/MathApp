@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!--   Honor Code: I acknowledge that this code represents my own work:
+		Ron Jensen
+		Date:  20180528 -->
+		<meta charset="utf-8" />
+		<meta name="description" content="Simple Math Quiz" />
+		<meta name="keywords" content="Math, Test, First, Second, Grade" />
+		<meta name="author" content="Ron Jensen" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<title>Jensen - Math Is Fun!</title>
+		<script>
+			var MathTest=function()
+			{
+				this.result=null;
+				this.op1=null;
+				this.op2=null;
+				this.question=0;
+				this.correct=0;
+				this.userName="";
+				this.buttonID="btn-add";
+				this.digits=2;
+			};
+			MathTest.prototype.tellScore=function(){
+				document.getElementById("score").innerText = "Score: " + this.correct + "/" +this.question;
+				console.log(this.correct);
+			}
+			MathTest.prototype.getUserName = function (){
+				do {
+					this.userName = prompt("Please enter your name");
+				}while(this.userName === null || this.userName === "");
+			};
+			MathTest.prototype.tellUserName = function()
+			{
+				document.getElementById("userName").innerText = "Hi, "+this.userName + ", lets play some math!";
+				console.log("Hi, "+this.userName);
+			};
+			MathTest.prototype.startQuestion=function(){
+				document.getElementById("answerCorrect").hidden=true;
+				document.getElementById("answerWrong").hidden=true;
+				document.getElementById("game_answer").value = ""; // clear
+				document.getElementById("game_answer").focus(); // set active
+				// create the numbers
+				this.op1 = Math.floor(Math.random() * Math.pow(10,this.digits));
+				this.op2 = Math.floor(Math.random() * Math.pow(10,this.digits));
+				// display
+				document.getElementById("game_operand1").innerText = this.op1;
+				document.getElementById("game_operand2").innerText = this.op2;
+				this.question++;
+			}
+			MathTest.prototype.playAdd=function() {
+				this.buttonID = "btn-add";
+				this.startQuestion();
+				this.result = this.op1 + this.op2;
+				// display
+				document.getElementById("game_operator").innerText = "+";
+			}
+			MathTest.prototype.playSubtract=function() {
+				this.buttonID = "btn-sub";
+				this.startQuestion();
+				this.result = this.op1 - this.op2;
+				// display
+				document.getElementById("game_operator").innerText = "-";
+			}
+			MathTest.prototype.playMultiply=function() {
+				this.buttonID = "btn-mul";
+				this.startQuestion();
+				// create the numbers
+				this.result = this.op1 * this.op2;
+				// display
+				document.getElementById("game_operator").innerText = "*";
+			}
+			MathTest.prototype.playDivide=function() {
+				this.buttonID = "btn-div";
+				this.op2 = 0;
+				while(this.op2 == 0 ) { //loop until denominator is not 0
+					this.startQuestion();
+				}
+				// create the numbers
+				this.result = this.op1;
+				this.op1 = this.result * this.op2;
+				// display
+				document.getElementById("game_operand1").innerText = this.op1; // override
+				document.getElementById("game_operator").innerText = "/";
+			}
+			MathTest.prototype.check=function(){
+				var theAnswer = parseInt(document.getElementById("game_answer").value);
+				console.log("Checking if " + this.result + " == " + theAnswer);
+				if(this.result === theAnswer){
+					this.correct++;
+					console.log("It does!");
+					document.getElementById("answerCorrect").hidden=false;
+					document.getElementById("answerWrong").hidden=true;
+				} else {
+					console.log("It does not!");
+					document.getElementById("answerCorrect").hidden=true;
+					document.getElementById("answerWrong").hidden=false;
+					document.getElementById("answerWrongShow").innerText = this.result;
+				}
+				this.tellScore();
+				this.result=null;
+				document.getElementById(this.buttonID).focus();
+			}
+
+			var myTest=new MathTest();;
+			var myOnLoad=function()
+			{
+				myTest.getUserName();
+				myTest.tellUserName();
+				myTest.tellScore();
+			};
+
+		</script>
+		<style>
+		.game_table{
+			border: 5px solid black;
+			margin: 2rem;
+			padding: 1rem;
+			overflow: hidden;
+			width: 90%;
+			height: 60%;
+		}
+		.game_td {
+			float: left;
+			text-align: center;
+			vertical-align: middle;
+			font-size: 500%;
+			background-color: #f0f0f0;
+			width: 20%;
+		}
+		.game_input {
+			width: 100%;
+			font-size: 100%;
+		}
+		.button_row {
+			text-align: center;
+		}
+/* From Bootstrap */
+		.btn { 
+			display : inline-block;
+			width: 6rem;
+			font-weight : 400;
+			text-align : center;
+			white-space : nowrap;
+			vertical-align : middle;
+			user-select : none;
+			border : transparent solid 1px;
+			padding : 0.375rem 0.75rem;
+			font-size : 5rem;
+			line-height : 1.5;
+			border-radius : 0.25rem;
+			transition : color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+		.alert-success {
+			color: #155724;
+			background-color: #d4edda;
+			border-color: #c3e6cb;
+		}
+		.alert-danger {
+			color: #721c24;
+			background-color: #f8d7da;
+			border-color: #f5c6cb;
+		}
+		.alert {
+			position: relative;
+			padding: .75rem 1.25rem;
+			margin-bottom: 1rem;
+			border: 1px solid transparent;
+			border-radius: .25rem;
+		}
+		</style>
+	</head>
+	<body onload="myOnLoad()">
+	<div class="game_table">
+		<div id="userName"></div> <div id="score"></div></p>
+		<div class="button_row">
+			<button id="btn-add" class="btn" type="button" onclick="myTest.playAdd();"     >+</button>
+			<button id="btn-sub" class="btn" type="button" onclick="myTest.playSubtract();">-</button>
+			<button id="btn-mul" class="btn" type="button" onclick="myTest.playMultiply();">*</button>
+			<button id="btn-div" class="btn" type="button" onclick="myTest.playDivide();"  >/</button>
+		</div> 
+		<div class="game_td" id="game_operand1"></div>
+		<div class="game_td" id="game_operator">+-*/</div>
+		<div class="game_td" id="game_operand2"></div>
+		<div class="game_td" id="game_equals">=</div>
+		<!-- game result is type text because number calls onchange too much -->
+		<div class="game_td" id="game_result"><input type="text" id="game_answer" name="game_answer"  class="game_input" onchange="myTest.check();" size="4"/></div>
+	</div>
+	<div class="alert alert-success collapse" role="alert" id="answerCorrect" hidden>
+		<span class="fa fa fa-thumbs-o-up" aria-hidden="true"></span>
+		<strong>Correct!</strong> You got it right!
+	</div>
+	<div class="alert alert-danger collapse" role="alert" id="answerWrong" hidden>
+		<span class="fa-stack fa-lg"  aria-hidden="true">
+			<i class="fa fa-circle-thin fa-stack-2x"></i>
+			<i class="fa fa-exclamation fa-stack-1x"></i>
+		</span>
+		<strong>Fail!</strong> The answer was: <span id="answerWrongShow">placeholder</span>
+	</div>
+	<!-- If you get this page to validate, remove this comment line
+	<a href="https://validator.w3.org/nu/?doc=THE FULL URL to THIS PAGE DIRECTLY">
+	<img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="63" height="64" alt="HTML5 Powered" title="HTML5 Powered" /> </a>
+	If you get this page to validate, remove this comment line -->
+	</body>
+</html> 
