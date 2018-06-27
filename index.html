@@ -20,7 +20,8 @@
 				this.correct=0;
 				this.userName="";
 				this.buttonID="btn-add";
-				this.digits=2;
+				this.maxDigit=16;
+				this.useNegative=false;
 			};
 			MathTest.prototype.tellScore=function(){
 				document.getElementById("score").innerText = "Score: " + this.correct + "/" +this.question;
@@ -42,8 +43,12 @@
 				document.getElementById("game_answer").value = ""; // clear
 				document.getElementById("game_answer").focus(); // set active
 				// create the numbers
-				this.op1 = Math.floor(Math.random() * Math.pow(10,this.digits));
-				this.op2 = Math.floor(Math.random() * Math.pow(10,this.digits));
+				this.op1 = Math.floor(Math.random() * (this.maxDigit+1));
+				this.op2 = Math.floor(Math.random() * (this.maxDigit+1));
+				if(this.useNegative){
+					this.op1 *= Math.random() > 0.5 ? 1 : -1;
+					this.op2 *= Math.random() > 0.5 ? 1 : -1;
+				}
 				// display
 				document.getElementById("game_operand1").innerText = this.op1;
 				document.getElementById("game_operand2").innerText = this.op2;
