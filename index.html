@@ -1,58 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!--   Honor Code: I acknowledge that this code represents my own work:
-		Ron Jensen
-		Date:  20180528
-		Copyright 2018 Ronald Jensen -->
-		<meta charset="utf-8" />
-		<meta name="description" content="Simple Math Quiz" />
-		<meta name="keywords" content="Math, Test, First, Second, Grade" />
-		<meta name="author" content="Ron Jensen" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="scripts/mathapp.css">
-		<title>Jensen - Math Is Fun!</title>
-		<script type="text/javascript" src="scripts/mathtest.js"></script>
-		<script type="text/javascript">
-			var myTest=new MathTest();;
-			var myOnLoad=function()
-			{
-				myTest.getUserName();
-				myTest.tellUserName();
-				myTest.tellScore();
-			};
-		</script>
-	</head>
-	<body onload="myOnLoad()">
-	<div class="game_table">
-		<div id="userName"></div> <div id="score"></div></p>
-		<div class="button_row">
-			<button id="btn-add" class="btn" type="button" onclick="myTest.playAdd();"     >+</button>
-			<button id="btn-sub" class="btn" type="button" onclick="myTest.playSubtract();">-</button>
-			<button id="btn-mul" class="btn" type="button" onclick="myTest.playMultiply();">*</button>
-			<button id="btn-div" class="btn" type="button" onclick="myTest.playDivide();"  >/</button>
-		</div> 
-		<div class="game_td" id="game_operand1"></div>
-		<div class="game_td" id="game_operator">+-*/</div>
-		<div class="game_td" id="game_operand2"></div>
-		<div class="game_td" id="game_equals">=</div>
-		<!-- game result is type text because number calls onchange too much -->
-		<div class="game_td" id="game_result"><input type="text" id="game_answer" name="game_answer"  class="game_input" onchange="myTest.check();" size="4"/></div>
-	</div>
-	<div class="alert alert-success collapse" role="alert" id="answerCorrect" hidden>
-		<span class="fa fa fa-thumbs-o-up" aria-hidden="true"></span>
-		<strong>Correct!</strong> You got it right!
-	</div>
-	<div class="alert alert-danger collapse" role="alert" id="answerWrong" hidden>
-		<span class="fa-stack fa-lg"  aria-hidden="true">
-			<i class="fa fa-circle-thin fa-stack-2x"></i>
-			<i class="fa fa-exclamation fa-stack-1x"></i>
-		</span>
-		<strong>Fail!</strong> The answer was: <span id="answerWrongShow">placeholder</span>
-	</div>
-	<!-- If you get this page to validate, remove this comment line
-	<a href="https://validator.w3.org/nu/?doc=THE FULL URL to THIS PAGE DIRECTLY">
-	<img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="63" height="64" alt="HTML5 Powered" title="HTML5 Powered" /> </a>
-	If you get this page to validate, remove this comment line -->
-	</body>
+  <head>
+    <!--   Honor Code: I acknowledge that this code represents my own work:
+    Ron Jensen
+    Date:  20180528
+    Copyright 2018 Ronald Jensen -->
+    <meta name="description" content="Simple Math Quiz" />
+    <meta name="keywords" content="Math, Test, First, Second, Grade" />
+    <meta name="author" content="Ron Jensen" />
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="scripts/mathapp.css">
+    <title>Jensen - Math Is Fun!</title>
+    <script type="text/javascript" src="scripts/mathtest.js"></script>
+    <script type="text/javascript">
+      var myTest=new MathTest();;
+      var myOnLoad=function()
+      {
+        //myTest.getUserName();
+        myTest.tellUserName();
+        myTest.tellScore();
+      };
+    var onToggleNegatives=function() {
+    // check if checkbox is checked
+    if (document.querySelector('#use-negatives').checked) {
+      // if checked
+      myTest.useNegative=true;
+    } else {
+      // if unchecked
+      myTest.useNegative=false;
+    }
+  }
+    </script>
+  </head>
+  <body onload="myOnLoad()">
+    <!-- Optional JavaScript. Bootstrap recomments these in body not head-->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <div class="game_table">
+    <header>
+      <!--button id="btn-settings" class="btn" type="button" onclick="mySettingsInit();"><i class="fa fa-cog">&nbsp;</i></button-->
+      <button type="button" class="btn btn-default no-print" aria-label="Settings" data-toggle="modal" data-target="#settingsModal"><span class="fa fa-cog" aria-hidden="true"></span>
+      </button>
+    </header>
+    <div id="userName"></div> <div id="score"></div></p>
+    <div class="button_row">
+      <button id="btn-add" class="btn" type="button" onclick="myTest.playAdd();"     >+</button>
+      <button id="btn-sub" class="btn" type="button" onclick="myTest.playSubtract();">-</button>
+      <button id="btn-mul" class="btn" type="button" onclick="myTest.playMultiply();">*</button>
+      <button id="btn-div" class="btn" type="button" onclick="myTest.playDivide();"  >/</button>
+    </div> 
+    <div class="game_td" id="game_operand1"></div>
+    <div class="game_td" id="game_operator">+-*/</div>
+    <div class="game_td" id="game_operand2"></div>
+    <div class="game_td" id="game_equals">=</div>
+    <!-- game result is type text because number calls onchange too much -->
+    <div class="game_td" id="game_result"><input type="text" id="game_answer" name="game_answer"  class="game_input" onchange="myTest.check();" size="4"/></div>
+  </div>
+  <div class="alert alert-success" role="alert" id="answerCorrect" hidden>
+    <span class="fa fa fa-thumbs-o-up" aria-hidden="true"></span>
+    <strong>Correct!</strong> You got it right!
+  </div>
+  <div class="alert alert-danger" role="alert" id="answerWrong" hidden>
+    <span class="fa-stack fa-lg"  aria-hidden="true">
+      <i class="fa fa-circle-thin fa-stack-2x"></i>
+      <i class="fa fa-exclamation fa-stack-1x"></i>
+    </span>
+    <strong>Fail!</strong> The answer was: <span id="answerWrongShow">placeholder</span>
+  </div>
+
+   <div class="modal fade no-print" tabindex="-1" role="dialog" id="settingsModal">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Settings</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+           <div class="modal-body">
+             <input type="checkbox" class="btn btn-default" id="use-negatives" onClick="onToggleNegatives()">Use Negative Numbers</input>
+             <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+           </form>
+         </div>
+        </div>
+      </div> <!-- Modal Dialog -->
+   </div> <!-- Modal fade -->
+
+  <!-- If you get this page to validate, remove this comment line
+  <a href="https://validator.w3.org/nu/?doc=THE FULL URL to THIS PAGE DIRECTLY">
+  <img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="63" height="64" alt="HTML5 Powered" title="HTML5 Powered" /> </a>
+  If you get this page to validate, remove this comment line -->
+  </body>
 </html> 
