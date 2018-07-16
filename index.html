@@ -19,7 +19,9 @@
     <title>Jensen - Math Is Fun!</title>
     <script type="text/javascript" src="scripts/mathtest.js"></script>
     <script type="text/javascript">
-      var myTest=new MathTest();;
+      var myTest=new MathTest();
+      var gameTimer=new StopWatch();
+      
       var myOnLoad=function()
       {
         //myTest.getUserName();
@@ -44,6 +46,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="scripts/stopwatch-2.js"></script>
     <div class="game_table">
     <header>
       <!--button id="btn-settings" class="btn" type="button" onclick="mySettingsInit();"><i class="fa fa-cog">&nbsp;</i></button-->
@@ -75,7 +78,7 @@
     </span>
     <strong>Fail!</strong> The answer was: <span id="answerWrongShow">placeholder</span>
   </div>
-
+<!-- SETTINGS MODAL -->
    <div class="modal fade no-print" tabindex="-1" role="dialog" id="settingsModal">
       <div class="modal-dialog">
          <div class="modal-content">
@@ -84,9 +87,20 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
            <div class="modal-body">
-             <input type="checkbox" class="btn btn-default" id="use-negatives" onClick="onToggleNegatives()">Use Negative Numbers</input>
-             <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-           </form>
+<ul>
+<li>The maximum number size, 9, 12, 16 or 99.</li>
+<li><input type="checkbox" class="btn btn-default" id="use-negatives" onClick="onToggleNegatives()">Use Negative Numbers</input></li>
+<li>hexadecimal?</li>
+
+<li>Which game mode to use</li>
+<li>Practice Mode: Random questions from the selected (currently 4) question types. A timer will run showing elapsed time, open ended.</li>
+<li>Minute to Win It Mode: Answer as many questions correctly as possible in 60 seconds (time as a setting)</li>
+<li>Twenty Questions Mode: Answer 20 questions correctly as rapidly as possible. (number as a setting)</li>
+<li><input type="checkbox" checked class="btn btn-default" id="enable-addition"      >Enable Addition</input></li>
+<li><input type="checkbox" checked class="btn btn-default" id="enable-subtraction"   >Enable Subtraction</input></li>
+<li><input type="checkbox" checked class="btn btn-default" id="enable-multiplication">Enable Multiplication</input></li>
+<li><input type="checkbox" checked class="btn btn-default" id="enable-division"      >Enable Division</input></li>
+</ul>
          </div>
         </div>
       </div> <!-- Modal Dialog -->
