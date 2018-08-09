@@ -31,6 +31,8 @@
       <!--button id="btn-settings" class="btn" type="button" onclick="mySettingsInit();"><i class="fa fa-cog">&nbsp;</i></button-->
       <button type="button" class="btn btn-default no-print" aria-label="Settings" data-toggle="modal" data-target="#settingsModal"><span class="fa fa-cog" aria-hidden="true"></span>
       </button>
+      <button type="button" class="btn btn-default no-print" aria-label="Login" data-toggle="modal" data-target="#loginModal"><span class="fa fa-user" aria-hidden="true"></span>
+      </button>
     </header>
     <div id="userName"></div> <div id="score"></div> <div id="timer"></div></p>
     <div id="gameTitle" class="button_row">Something</div>
@@ -101,7 +103,27 @@
         </div>
       </div> <!-- Modal Dialog -->
    </div> <!-- Modal fade -->
-  
+<!-- LOGIN MODAL -->
+  <div class="modal fade no-print" tabindex="-1" role="dialog" id="loginModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Login</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form id="login_form" action="#" method="get">
+            <label for="user_name">User Name:</label><br>
+            <input name="user_name" id="user_name" size="20"/><br>
+            <label for="user_passwd">Password:</label><br>
+            <input type="password" name="user_passwd" id="user_passwd" autocomplete='off'  size="20"/><br>
+            <p id="psub">
+            <input type="submit" value="Log me in!" />
+         </form>
+        </div>
+      </div>
+    </div> <!-- Modal Dialog -->
+  </div> <!-- Modal fade -->  
   <script type="text/javascript">
       var gameTimer=new StopWatch();
       var myTest=new MathTest(gameTimer);
@@ -138,6 +160,16 @@ var myOnLoad=function() {
     var valueSelected = this.value;
     myTest.maxDigit = parseInt(valueSelected);
   });
+  // https://stackoverflow.com/a/12252576/4504607
+  $('#login_form').on('submit', function(e) { 
+    e.preventDefault();  //prevent form from submitting
+    logindata = $("#login_form :input").serializeArray();
+    console.log(logindata);
+    if( myTest.setUserName(logindata[0].value) ){
+      $("#loginModal .close").click(); // click the close gadget, we're done
+    }
+  });
+
 };
 $(document).ready(myOnLoad);
     </script>

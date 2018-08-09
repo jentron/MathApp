@@ -20,10 +20,14 @@ MathTest.prototype.tellScore=function(){
 }
 
 // the next two probably don't go in this class
-MathTest.prototype.getUserName = function (){
-	do {
-		this.userName = prompt("Please enter your name");
-	}while(this.userName === null || this.userName === "");
+MathTest.prototype.setUserName = function (user){
+	if (user === null || user == "") {
+		this.userName = "any mouse";
+	} else {
+		this.userName = user;
+	}
+	this.tellUserName();
+	return true;
 };
 MathTest.prototype.tellUserName = function()
 {
