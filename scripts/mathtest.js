@@ -103,22 +103,25 @@ MathTest.prototype.check=function(){
 	this.result=null;
 	document.getElementById(this.buttonID).focus();
 }
+MathTest.prototype.setTitle=function(title, subtitle){
+	document.getElementById("gameTitle").innerHTML = "<h2>" + title + "</h2><h3>" + subtitle + "</h3>";
+}
 MathTest.prototype.startGameFreeplay=function(){
 	this.gameMode='mode_freeplay';
-	document.getElementById("gameTitle").innerText = "Free Play Mode";
+	this.setTitle("Free Play Mode", "Click an operation for next question");
 }
 MathTest.prototype.startGameMinute=function(){
 	this.gameMode='mode_minute';
-	document.getElementById("gameTitle").innerText = "Minute To Win It Mode";
+	this.setTitle("Minute To Win It Mode", "Answer as many questions as possible in 60 Seconds");
 
 }
 MathTest.prototype.startGame20Questions=function(){
 	this.gameMode='mode_twenty';
-	document.getElementById("gameTitle").innerText = "20 Questions Mode";
+	this.setTitle("20 Questions Mode", "Answer 20 questions correctly as rapidly as possible.");
 }
 MathTest.prototype.startGamePractice=function(){
 	this.gameMode='mode_practice';
-	document.getElementById("gameTitle").innerText = "Practice Mode";
+	this.setTitle("Practice Mode", "Answer Randomly Selected Questions");
 }
 
 MathTest.prototype.setGameMode=function(mode)

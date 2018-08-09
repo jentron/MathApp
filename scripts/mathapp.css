@@ -20,10 +20,15 @@
 	width: 100%;
 	font-size: 100%;
 }
-#gameTitle {
+#gameTitle h2{
 	text-align: center;
 	width: 100%;
 	font-size: 5rem;
+}
+#gameTitle h3{
+	text-align: center;
+	width: 100%;
+	font-size: 2rem;
 }
 .button_row {
 	text-align: center;
