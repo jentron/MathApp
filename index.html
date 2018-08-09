@@ -18,35 +18,14 @@
     <link rel="stylesheet" href="scripts/mathapp.css">
     <title>Jensen - Math Is Fun!</title>
     <script type="text/javascript" src="scripts/mathtest.js"></script>
-    <script type="text/javascript">
-      var myTest=new MathTest();
-      var gameTimer=new StopWatch();
-      
-      var myOnLoad=function()
-      {
-        //myTest.getUserName();
-        myTest.tellUserName();
-        myTest.tellScore();
-      };
-    var onToggleNegatives=function() {
-    // check if checkbox is checked
-    if (document.querySelector('#use-negatives').checked) {
-      // if checked
-      myTest.useNegative=true;
-    } else {
-      // if unchecked
-      myTest.useNegative=false;
-    }
-  }
-    </script>
+    <script type="text/javascript" src="scripts/stopwatch-2.js"></script>
   </head>
-  <body onload="myOnLoad()">
+  <body>
     <!-- Optional JavaScript. Bootstrap recomments these in body not head-->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <script src="scripts/stopwatch-2.js"></script>
     <div class="game_table">
     <header>
       <!--button id="btn-settings" class="btn" type="button" onclick="mySettingsInit();"><i class="fa fa-cog">&nbsp;</i></button-->
@@ -88,14 +67,28 @@
             </div>
            <div class="modal-body">
 <ul>
-<li>The maximum number size, 9, 12, 16 or 99.</li>
-<li><input type="checkbox" class="btn btn-default" id="use-negatives" onClick="onToggleNegatives()">Use Negative Numbers</input></li>
-<li>hexadecimal?</li>
+<li>The maximum number size<div>
+  <select id="settings_maxValue">
+    <option value="9" > 9</option>
+    <option value="12">12</option>
+    <option value="16"  selected="selected">16</option>
+    <option value="99">99</option>
+  </select>
+</div></li>
+<li id="settings_useNegativesDiv"><input type="checkbox" class="btn btn-default" id="use-negatives" >Use Negative Numbers</input></li>
+<!--li>hexadecimal?</li-->
 
-<li>Which game mode to use</li>
+<li>Which game mode to use<div>
+  <select id="settings_gameMode">
+    <option value="mode_practice" selected="selected">Practice Mode</option>
+    <option value="mode_minute"   >Minute to Win It Mode</option>
+    <option value="mode_questions">Twenty Questions Mode</option>
+  </select>
+</div></li>
+<!--
 <li>Practice Mode: Random questions from the selected (currently 4) question types. A timer will run showing elapsed time, open ended.</li>
 <li>Minute to Win It Mode: Answer as many questions correctly as possible in 60 seconds (time as a setting)</li>
-<li>Twenty Questions Mode: Answer 20 questions correctly as rapidly as possible. (number as a setting)</li>
+<li>Twenty Questions Mode: Answer 20 questions correctly as rapidly as possible. (number as a setting)</li> -->
 <li><input type="checkbox" checked class="btn btn-default" id="enable-addition"      >Enable Addition</input></li>
 <li><input type="checkbox" checked class="btn btn-default" id="enable-subtraction"   >Enable Subtraction</input></li>
 <li><input type="checkbox" checked class="btn btn-default" id="enable-multiplication">Enable Multiplication</input></li>
@@ -105,10 +98,36 @@
         </div>
       </div> <!-- Modal Dialog -->
    </div> <!-- Modal fade -->
+  
+  <script type="text/javascript">
+      var gameTimer=new StopWatch();
+      var myTest=new MathTest(gameTimer);
+      
+var myOnLoad=function() {
+  //myTest.getUserName();
+  myTest.tellUserName();
+  myTest.tellScore();
+    
+  $('#settings_useNegativesDiv').click(function() {
+    // check if checkbox is checked
+    console.log("settings_useNegativesDiv Called");
+    if (document.querySelector('#use-negatives').checked) {
+      // if checked
+      myTest.useNegative=true;
+    } else {
+      // if unchecked
+      myTest.useNegative=false;
+    }
+  });
 
-  <!-- If you get this page to validate, remove this comment line
-  <a href="https://validator.w3.org/nu/?doc=THE FULL URL to THIS PAGE DIRECTLY">
-  <img src="https://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="63" height="64" alt="HTML5 Powered" title="HTML5 Powered" /> </a>
-  If you get this page to validate, remove this comment line -->
+  $('#settings_maxValue').on('change', function (e) {
+    console.log("settings_useNegativesDiv Called");
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    myTest.maxDigit = parseInt(valueSelected);
+  });
+};
+$(document).ready(myOnLoad);
+    </script>
   </body>
 </html> 
