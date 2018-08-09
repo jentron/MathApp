@@ -1,5 +1,7 @@
 # MathApp
 A Javascript web-page app started as a final project for cs2350
+https://jentron.github.io/MathApp/
+
 
 I propose to:
 
