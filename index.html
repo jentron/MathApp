@@ -130,6 +130,8 @@ var myOnLoad=function() {
     var valueSelected = this.value;
     myTest.setGameMode(valueSelected);
   });
+  // and start in freeplay mode:
+  myTest.setGameMode('mode_freeplay');
   $('#settings_maxValue').on('change', function (e) {
     console.log("settings_useNegativesDiv Called");
     var optionSelected = $("option:selected", this);
