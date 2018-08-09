@@ -1,6 +1,6 @@
 /* Copyright 2018 Ronald Jensen */
 
-var MathTest=function()
+var MathTest=function(stopwatch)
 {
 	this.result=null;
 	this.op1=null;
@@ -11,6 +11,7 @@ var MathTest=function()
 	this.buttonID="btn-add";
 	this.maxDigit=16;
 	this.useNegative=false;
+	this.stopWatch=stopwatch;
 };
 MathTest.prototype.tellScore=function(){
 	document.getElementById("score").innerText = "Score: " + this.correct + "/" +this.question;
@@ -41,6 +42,7 @@ MathTest.prototype.startQuestion=function(){
 	// display
 	document.getElementById("game_operand1").innerText = this.op1;
 	document.getElementById("game_operand2").innerText = this.op2;
+	if(this.stopWatch) this.stopWatch.start();
 	this.question++;
 }
 MathTest.prototype.playAdd=function() {
@@ -79,6 +81,7 @@ MathTest.prototype.playDivide=function() {
 	document.getElementById("game_operator").innerText = "/";
 }
 MathTest.prototype.check=function(){
+	if(this.stopWatch) this.stopWatch.stop();
 	var theAnswer = parseInt(document.getElementById("game_answer").value);
 	console.log("Checking if " + this.result + " == " + theAnswer);
 	if(this.result === theAnswer){
