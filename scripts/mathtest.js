@@ -21,7 +21,7 @@ MathTest.prototype.tellScore=function(){
 
 // the next two probably don't go in this class
 MathTest.prototype.setUserName = function (user){
-	if (user === null || user == "") {
+	if (user === null || user == "" || user === undefined) {
 		this.userName = "any mouse";
 	} else {
 		this.userName = user;

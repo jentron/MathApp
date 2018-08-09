@@ -129,7 +129,7 @@
       var myTest=new MathTest(gameTimer);
       
 var myOnLoad=function() {
-  //myTest.getUserName();
+  myTest.setUserName(); // just set null to get default from method
   myTest.tellUserName();
   myTest.tellScore();
   setInterval(function() {
