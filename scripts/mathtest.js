@@ -12,11 +12,14 @@ var MathTest=function(stopwatch)
 	this.maxDigit=16;
 	this.useNegative=false;
 	this.stopWatch=stopwatch;
+	this.gameMode='freeplay';
 };
 MathTest.prototype.tellScore=function(){
 	document.getElementById("score").innerText = "Score: " + this.correct + "/" +this.question;
 	console.log(this.correct);
 }
+
+// the next two probably don't go in this class
 MathTest.prototype.getUserName = function (){
 	do {
 		this.userName = prompt("Please enter your name");
@@ -27,6 +30,7 @@ MathTest.prototype.tellUserName = function()
 	document.getElementById("userName").innerText = "Hi, "+this.userName + ", lets play some math!";
 	console.log("Hi, "+this.userName);
 };
+
 MathTest.prototype.startQuestion=function(){
 	document.getElementById("answerCorrect").hidden=true;
 	document.getElementById("answerWrong").hidden=true;
@@ -98,4 +102,42 @@ MathTest.prototype.check=function(){
 	this.tellScore();
 	this.result=null;
 	document.getElementById(this.buttonID).focus();
+}
+MathTest.prototype.startGameFreeplay=function(){
+	this.gameMode='mode_freeplay';
+	document.getElementById("gameTitle").innerText = "Free Play Mode";
+}
+MathTest.prototype.startGameMinute=function(){
+	this.gameMode='mode_minute';
+	document.getElementById("gameTitle").innerText = "Minute To Win It Mode";
+
+}
+MathTest.prototype.startGame20Questions=function(){
+	this.gameMode='mode_twenty';
+	document.getElementById("gameTitle").innerText = "20 Questions Mode";
+}
+MathTest.prototype.startGamePractice=function(){
+	this.gameMode='mode_practice';
+	document.getElementById("gameTitle").innerText = "Practice Mode";
+}
+
+MathTest.prototype.setGameMode=function(mode)
+{
+	switch(mode) {
+		case 'mode_freeplay':
+			this.startGameFreeplay();
+			break;
+		case 'mode_minute':
+			this.startGameMinute();
+			break;
+		case 'mode_twenty':
+			this.startGame20Questions();
+			break;
+		case 'mode_practice':
+			this.startGamePractice();
+			break;
+		default: // warning: recursion.
+			this.setGameMode('mode_freeplay');
+			break;
+	}
 }

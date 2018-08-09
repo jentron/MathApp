@@ -32,7 +32,8 @@
       <button type="button" class="btn btn-default no-print" aria-label="Settings" data-toggle="modal" data-target="#settingsModal"><span class="fa fa-cog" aria-hidden="true"></span>
       </button>
     </header>
-    <div id="userName"></div> <div id="score"></div></p>
+    <div id="userName"></div> <div id="score"></div> <div id="timer"></div></p>
+    <div id="gameTitle" class="button_row">Something</div>
     <div class="button_row">
       <button id="btn-add" class="btn" type="button" onclick="myTest.playAdd();"     >+</button>
       <button id="btn-sub" class="btn" type="button" onclick="myTest.playSubtract();">-</button>
@@ -80,12 +81,14 @@
 
 <li>Which game mode to use<div>
   <select id="settings_gameMode">
-    <option value="mode_practice" selected="selected">Practice Mode</option>
+    <option value="mode_freeplay" selected="selected">Free Mode</option>
+    <option value="mode_practice" >Practice Mode</option>
     <option value="mode_minute"   >Minute to Win It Mode</option>
-    <option value="mode_questions">Twenty Questions Mode</option>
+    <option value="mode_twenty">Twenty Questions Mode</option>
   </select>
 </div></li>
 <!--
+<li>Free Mode: User selects which type of question to answer. A timer will run showing elapsed time, open ended.</li>
 <li>Practice Mode: Random questions from the selected (currently 4) question types. A timer will run showing elapsed time, open ended.</li>
 <li>Minute to Win It Mode: Answer as many questions correctly as possible in 60 seconds (time as a setting)</li>
 <li>Twenty Questions Mode: Answer 20 questions correctly as rapidly as possible. (number as a setting)</li> -->
@@ -107,7 +110,9 @@ var myOnLoad=function() {
   //myTest.getUserName();
   myTest.tellUserName();
   myTest.tellScore();
-    
+  setInterval(function() {
+    $('#timer').html("Elapsed time: " + (gameTimer.getElapsed()/1000));
+  }, 100);
   $('#settings_useNegativesDiv').click(function() {
     // check if checkbox is checked
     console.log("settings_useNegativesDiv Called");
@@ -119,7 +124,12 @@ var myOnLoad=function() {
       myTest.useNegative=false;
     }
   });
-
+  $('#settings_gameMode').on('change', function (e) {
+    console.log("settings_gameMode Called");
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    myTest.setGameMode(valueSelected);
+  });
   $('#settings_maxValue').on('change', function (e) {
     console.log("settings_useNegativesDiv Called");
     var optionSelected = $("option:selected", this);
