@@ -36,31 +36,27 @@
     </header>
     <div id="userName"></div> <div id="score"></div> <div id="timer"></div><br>
     <div>
-    <div id="gameTitle" class="button_row">Something</div>
-    <div class="button_row">
-      <button id="btn-add" class="btn" type="button" onclick="myTest.playAdd();"     >+</button>
-      <button id="btn-sub" class="btn" type="button" onclick="myTest.playSubtract();">-</button>
-      <button id="btn-mul" class="btn" type="button" onclick="myTest.playMultiply();">*</button>
-      <button id="btn-div" class="btn" type="button" onclick="myTest.playDivide();"  >/</button>
-    </div> 
-    <div class="game_td" id="game_operand1"></div>
-    <div class="game_td" id="game_operator">+-*/</div>
-    <div class="game_td" id="game_operand2"></div>
-    <div class="game_td" id="game_equals">=</div>
-    <!-- game result is type text because number calls onchange too much -->
-    <div class="game_td" id="game_result"><input type="text" id="game_answer" name="game_answer"  class="game_input" onchange="myTest.check();" size="4"/></div>
-  </div>
-  <div class="alert alert-success" role="alert" id="answerCorrect" hidden>
-    <span class="fa fa fa-thumbs-o-up" aria-hidden="true"></span>
-    <strong>Correct!</strong> You got it right!
-  </div>
-  <div class="alert alert-danger" role="alert" id="answerWrong" hidden>
-    <span class="fa-stack fa-lg"  aria-hidden="true">
-      <i class="fa fa-circle-thin fa-stack-2x"></i>
-      <i class="fa fa-exclamation fa-stack-1x"></i>
-    </span>
-    <strong>Fail!</strong> The answer was: <span id="answerWrongShow">placeholder</span>
-  </div>
+      <div id="gameTitle" class="button_row">Something</div>
+      <div class="button_row" id="command_row">
+      </div> 
+      <div class="game_td" id="game_operand1"></div>
+      <div class="game_td" id="game_operator">+-*/</div>
+      <div class="game_td" id="game_operand2"></div>
+      <div class="game_td" id="game_equals">=</div>
+      <!-- game result is type text because number calls onchange too much -->
+      <div class="game_td" id="game_result"><input type="text" id="game_answer" name="game_answer"  class="game_input" onchange="myTest.check();" size="4"/></div>
+    </div>
+    <div class="alert alert-success" role="alert" id="answerCorrect" hidden>
+      <span class="fa fa fa-thumbs-o-up" aria-hidden="true"></span>
+      <strong>Correct!</strong> You got it right!
+    </div>
+    <div class="alert alert-danger" role="alert" id="answerWrong" hidden>
+      <span class="fa-stack fa-lg"  aria-hidden="true">
+        <i class="fa fa-circle-thin fa-stack-2x"></i>
+        <i class="fa fa-exclamation fa-stack-1x"></i>
+      </span>
+      <strong>Fail!</strong> The answer was: <span id="answerWrongShow">placeholder</span>
+    </div>
   </div>
 <!-- SETTINGS MODAL -->
    <div class="modal fade no-print" tabindex="-1" role="dialog" id="settingsModal">

@@ -76,7 +76,7 @@ MathTest.prototype.playMultiply=function() {
 	document.getElementById("game_operator").innerText = "*";
 }
 MathTest.prototype.playDivide=function() {
-	this.buttonID = "btn-div";
+	this.buttonID = "btn-div"
 	this.op2 = 0;
 	while(this.op2 == 0 ) { //loop until denominator is not 0
 		this.startQuestion();
@@ -87,6 +87,24 @@ MathTest.prototype.playDivide=function() {
 	// display
 	document.getElementById("game_operand1").innerText = this.op1; // override
 	document.getElementById("game_operator").innerText = "/";
+}
+MathTest.prototype.playNextQuestion = function() {
+	switch ( Math.floor(Math.random() * 4) ) {
+		case 0:
+			this.playDivide();
+			break;
+		case 1:
+			this.playMultiply();
+			break;
+		case 2:
+			this.playSubtract();
+			break;
+		case 3:
+		default: // also case 3:
+			this.playAdd();
+			break;
+	}
+	this.buttonID = "btn-next"
 }
 MathTest.prototype.check=function(){
 	if(this.stopWatch) this.stopWatch.stop();
@@ -113,6 +131,8 @@ MathTest.prototype.setTitle=function(title, subtitle){
 MathTest.prototype.startGameFreeplay=function(){
 	this.gameMode='mode_freeplay';
 	this.setTitle("Free Play Mode", "Click an operation for next question");
+	var commandButtons = '<button id="btn-add" class="btn" type="button" onclick="myTest.playAdd();"     >+</button>\<button id="btn-sub" class="btn" type="button" onclick="myTest.playSubtract();">-</button>\<button id="btn-mul" class="btn" type="button" onclick="myTest.playMultiply();">*</button>\<button id="btn-div" class="btn" type="button" onclick="myTest.playDivide();"  >/</button>'
+	$('#command_row').html(commandButtons);
 }
 MathTest.prototype.startGameMinute=function(){
 	this.gameMode='mode_minute';
@@ -126,6 +146,8 @@ MathTest.prototype.startGame20Questions=function(){
 MathTest.prototype.startGamePractice=function(){
 	this.gameMode='mode_practice';
 	this.setTitle("Practice Mode", "Answer Randomly Selected Questions");
+	var commandButtons = '<button id="btn-next" class="btn-text" type="button" onclick="myTest.playNextQuestion();">Next<br>Question</button>'
+	$('#command_row').html(commandButtons);
 }
 
 MathTest.prototype.setGameMode=function(mode)
