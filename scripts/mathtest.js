@@ -36,6 +36,7 @@ MathTest.prototype.tellUserName = function()
 };
 
 MathTest.prototype.startQuestion=function(){
+	this.tellScore(); // if a question is skipped tellScore doesn't get called in this.check
 	document.getElementById("answerCorrect").hidden=true;
 	document.getElementById("answerWrong").hidden=true;
 	document.getElementById("game_answer").value = ""; // clear
